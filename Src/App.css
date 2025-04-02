@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Poppins, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+:root {
+  --Bg: #dfdfdf;
+  --Col: #2d2d2d;
+  --Kustom: red;
+  --Ani: 0.3s ease-in-out All;
+}
+.dark-thme:root {
+  --Bg: #252525;
+  --Col: #ccc;
+  --Kustom: red;
+  --Star: #ffe100;
+}
+.main {
+  padding: 0 3rem;
+}
+.sect-01 {
+  padding: 1rem 0;
+}
+.Latests {
+  margin-bottom: 0.3rem;
+  padding-left: 0.5rem;
+  font-size: 1.5rem;
+  border-left: 0.3rem solid var(--Kustom);
+}
+.wap-cont {
+  margin-top: 1rem;
+  width: 100%;
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  /* border: 1px solid red; */
+}
+.link-item {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.link-item img {
+  height: 14rem;
+  width: 10rem;
+  object-fit: cover;
+  border-radius: 0.5rem;
+  transition: var(--Ani);
+  &:hover {
+    scale: 1.05;
+  }
+}
+.block-star {
+  display: flex;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  border-radius: 1rem;
+  background: rgba(37, 37, 37, 0.5);
+}
+.star {
+  padding: 0.1rem;
+  color: var(--star);
+}
+/*  */
+.coluns {
+  display: flex;
+}
+.sect-02 {
+  width: 70rem;
+  border: 1px solid yellow;
+}
+/* popular */
+.Wap-popular {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+}
+.art-01 {
+  width: 30rem;
+  border: 1px solid yellow;
+}
