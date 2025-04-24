@@ -3,15 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Onini | Animes, Mangás e Manhwa</title>
-    <link rel="stylesheet" href="./Src/App.css" />
-    <link rel="stylesheet" href="./Layout/Header/Header.css" />
-    <link rel="stylesheet" href="./Layout/Footer/Footer.css" />
+    <title>Onini | Ranking</title>
+    <link rel="stylesheet" href="../Src/App.css" />
+    <link rel="stylesheet" href="../Layout/Header/Header.css" />
+    <link rel="stylesheet" href="../Layout/Footer/Footer.css" />
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"></script>
   </head>
-  <body class="">
+  <body>
     <div id="preloader">
       <div id="status">&nbsp;</div>
       <div class="loader">
@@ -81,13 +81,7 @@
         </li>
       </ul>
 
-      <li id="login" class="Drop_item">
-        <button id="loginBTN"><ion-icon name="log-in"></ion-icon>Login</button>
-
-        <button id="logoutBTN" class="hidden">
-          <ion-icon name="log-out"></ion-icon>Logout
-        </button>
-      </li>
+      <li class="Drop_item"><ion-icon name="log-in"></ion-icon>Login</li>
     </ul>
 
     <nav class="sidebar" id="sidebar">
@@ -98,8 +92,8 @@
           >
         </li>
         <li>
-          <a class="menu-item" href="./Pages/Ranking.html"
-            ><ion-icon name="stats-chart"></ion-icon>Ranking</a
+          <a class="menu-item" href="#"
+            ><ion-icon name="home"></ion-icon>Ranking</a
           >
         </li>
         <li>
@@ -155,51 +149,17 @@
 
       <section class="sect">
         <h2>Todos</h2>
-        <div class="gallery-center">
-          <div id="galleryList" class="gallery-grid"></div>
-          <div id="galleryCenter">
-            <div id="toggleGallery" class="toggle-gallery-btn">
-              <ion-icon
-                id="toggleIcon"
-                name="chevron-down"
-                class="toggleIcon"
-              ></ion-icon>
-            </div>
-          </div>
-        </div>
+        <div id="galleryList" class="Content-Gallery"></div>
       </section>
 
-      <section class="sect">
+      <section>
         <h2>Categorias</h2>
-        <div id="categoryList" class="Flex-Content"></div>
+        <div id="categoryList" class="grid-Content"></div>
       </section>
     </main>
 
-    <footer class="foot">
-      <div class="foot_logo-Social">
-        <a
-          class="Logo"
-          href="./Index.html"
-          title="Página Inicial"
-          target="_blank"
-          >Onini</a
-        >
-        <span class="Divisor"></span>
-        <ul>
-          <li>
-            <a
-              class="Social"
-              href="https://github.com/jej3zin/Onini"
-              title="Repositório"
-              target="_blank"
-              ><ion-icon name="logo-github"></ion-icon
-            ></a>
-          </li>
-        </ul>
-      </div>
-      <p class="CopyText">&copy; 2025 by Jej3zin</p>
-    </footer>
-
+    <script src="./Src/jquery.js"></script>
+    <script src="./Src/App.js"></script>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -208,7 +168,5 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
-    <script src="./Src/jquery.js"></script>
-    <script src="./Src/App.js"></script>
   </body>
 </html>
