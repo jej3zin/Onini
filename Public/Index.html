@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onini | Animes, Mangás e Manhwa</title>
+    <link rel="icon" href="./Asset/Images/Onini-Icon.png" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../Src/Styles/Index.css" />
+    <link rel="stylesheet" href="../Src/Styles/App.css" />
+    <link rel="stylesheet" href="../Src/Components/Header/HeadStyle.css" />
+    <link rel="stylesheet" href="../Src/Components/Footer/Footer.css" />
+
+    <!-- Scripts Externos -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"
+      defer
+    ></script>
+
+    <!-- Ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      defer
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      defer
+    ></script>
+  </head>
+  <body class="theme-day">
+    <div id="preloader" class="WapLoader">
+      <span class="Loader"></span>
+    </div>
+
+    <div id="conteudo">
+      <!-- style="display: none" -->
+      <header class="head">
+        <div id="CenterBox">
+          <button id="toggleMenu">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+          <a class="logo" href="./Index.html" title="Página inicial">Onini</a>
+        </div>
+
+        <div id="CenterRight">
+          <div class="search-container">
+            <input
+              type="text"
+              placeholder="Buscar animes, mangás..."
+              id="searchInput"
+            />
+            <button><ion-icon name="search"></ion-icon></button>
+          </div>
+
+          <div class="Inbox-container">
+            <button id="inboxBtn" title="Inbox">
+              <ion-icon name="mail"></ion-icon>
+            </button>
+
+            <div id="inboxDropdown" class="hidden">
+              <header class="HeadInbox">
+                <ion-icon name="mail"></ion-icon> Inbox
+              </header>
+
+              <article class="Mail" data-id="1">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Solo Leveling disponível, vem conferir!</p>
+              </article>
+
+              <article class="Mail" data-id="2">
+                <div>
+                  <p><strong>✉️ Notícia!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Nova Atualização do Onini disponível, vem conferir!</p>
+              </article>
+
+              <article class="Mail" data-id="3">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Solo Leveling: Ragnarok disponível, vem conferir!</p>
+              </article>
+            </div>
+          </div>
+
+          <div id="inboxDetail" class="hidden">
+            <section class="WrapperInbox">
+              <header>
+                <div>
+                  <h3 id="detailTitle"></h3>
+                  <p id="detailDate" class="data"></p>
+                </div>
+                <button id="closeDetail">
+                  <ion-icon name="close"></ion-icon>
+                </button>
+              </header>
+
+              <main>
+                <p id="detailContent"></p>
+              </main>
+            </section>
+          </div>
+
+          <div id="userDropdownWrapper">
+            <button
+              id="userDropdownBtn"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Abrir menu do usuário"
+            >
+              <img id="user-avatar" src="" alt="Avatar" />
+              <!-- <img
+                src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+                class="user-icon"
+                id="userProfilePic"
+              /> -->
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <ul id="userDropdown" class="dropdown">
+        <li>
+          <a href="../Src/Pages/Profile.html" class="Drop_item"
+            ><ion-icon name="person"></ion-icon>Perfil</a
+          >
+        </li>
+
+        <li>
+          <a href="" class="Drop_item"
+            ><ion-icon name="mail"></ion-icon>Inbox</a
+          >
+        </li>
+
+        <button id="themeToggleBtn" class="Drop_item">
+          <ion-icon name="caret-forward"></ion-icon>Tema
+        </button>
+
+        <ul id="themeOptions" class="submenu-tema hiddenTheme">
+          <li>
+            <button class="Drop_item" id="themeDay">
+              <ion-icon name="sunny"></ion-icon>Day
+            </button>
+          </li>
+          <li>
+            <button class="Drop_item" id="themeNight">
+              <ion-icon name="moon"></ion-icon>Night
+            </button>
+          </li>
+          <li>
+            <button class="Drop_item" id="themePurple">
+              <ion-icon name="brush"></ion-icon>Purple
+            </button>
+          </li>
+        </ul>
+
+        <button class="Drop_item open-settings">
+          <ion-icon name="settings"></ion-icon>Configurações
+        </button>
+
+        <li class="Drop_item"><ion-icon name="help-circle"></ion-icon>Ajuda</li>
+
+        <li id="login">
+          <button class="Drop_item" id="loginBTN">
+            <ion-icon name="log-in"></ion-icon>Login
+          </button>
+
+          <button class="Drop_item hidden" id="logoutBTN" class="hidden">
+            <ion-icon name="log-out"></ion-icon>Logout
+          </button>
+        </li>
+      </ul>
+
+      <div id="loginModal" class="hidden modal-backdrop">
+        <div class="modal-content">
+          <h2>Login</h2>
+          <form action="">
+            <input
+              type="text"
+              id="loginUsername"
+              autocomplete="username"
+              placeholder="Usuário"
+            />
+            <input
+              type="password"
+              id="loginPassword"
+              autocomplete="current-password"
+              placeholder="Senha"
+            />
+            <button id="submitLogin">Entrar</button>
+          </form>
+        </div>
+      </div>
+
+      <nav class="sidebar" id="sidebar">
+        <ul class="sideMenu-1">
+          <li>
+            <a class="menu-item" href="./Index.html">
+              <ion-icon name="home"></ion-icon>Início
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="tv"></ion-icon>Animes
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="book"></ion-icon>Animes
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="book"></ion-icon>Manhwas
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="./Pages/Ranking.html">
+              <ion-icon name="stats-chart"></ion-icon>Ranking
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="calendar"></ion-icon>Temporada
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="flame"></ion-icon>Populares
+            </a>
+          </li>
+        </ul>
+
+        <span class="DivisorLine"></span>
+
+        <ul class="sideMenu-2">
+          <li>
+            <button class="menu-item" data-btn="favorite">
+              <ion-icon name="heart"></ion-icon>Favoritos
+            </button>
+
+            <ul class="sideDropdownFavorite hidden">
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Animes
+                  Favoritos</a
+                >
+              </li>
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Mangás
+                  Favoritos</a
+                >
+              </li>
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Manhwas
+                  Favoritos</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <button class="menu-item" data-btn="friend">
+              <ion-icon name="people"></ion-icon>Amigos
+            </button>
+
+            <section class="sideDropdownFriend hidden">
+              <h2 class="TitleFriends">Amigos</h2>
+              <ul class="GroupList">
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://steamuserimages-a.akamaihd.net/ugc/2914936281388135/FC6A3E3F2032D7654871C17C6536EAFCD1511036/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">jej3zin (DEV)</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/736x/26/b7/28/26b728b78fb0121a2b38564bcbdd9655.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">Elisa</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://steamuserimages-a.akamaihd.net/ugc/2465234473083838759/1A127BB71D029AF786442D810E4C3205139E4B65/?imw=512&amp;imh=512&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">✧.*Moon✧.*</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/originals/4f/f7/57/4ff757889616f9e8bb289520adeee7ef.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status offine"></span>
+                    </div>
+                    <span class="username">Abacaxi2000BitOne87t9789</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/originals/c5/2d/1d/c52d1d560cd05ae7d566016de6ec4264.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status offine"></span>
+                    </div>
+                    <span class="username">Mimica</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </li>
+          <li>
+            <button class="menu-item" data-btn="profile">
+              <ion-icon name="person-circle"></ion-icon>Perfil
+            </button>
+
+            <ul class="sideDropdownProfile">
+              <li>
+                <a class="DP-item" href="../Src/Pages/Profile.html">
+                  <img id="user-avatar" src="" alt="Avatar" />
+                  <!-- <img
+                    src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+                    class="AvatarUser"
+                    id="userProfilePic"
+                    alt="Usuário"
+                  /> -->
+                  <span id="user-name" class="NameUser"></span>
+                </a>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="perfil">
+                  <ion-icon name="person"></ion-icon>Conta
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="editar">
+                  <ion-icon name="pencil"></ion-icon>Editar Perfil
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="Segurity">
+                  <ion-icon name="lock-closed"></ion-icon>Segurity
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="conta">
+                  <ion-icon name="settings"></ion-icon>Configurações
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="support">
+                  <ion-icon name="help"></ion-icon>Ajuda e Suporte
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item" data-section="conta">
+                  <ion-icon name="notifications"></ion-icon>Notificação
+                </button>
+              </li>
+              <li>
+                <button class="open-settings DP-item">
+                  <ion-icon name="log-in"></ion-icon>Login
+                </button>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="settings-modal hidden">
+        <header class="settings-header">
+          <div>
+            <ion-icon name="settings"></ion-icon>
+            <h2>Configurações</h2>
+          </div>
+          <ion-icon name="close"></ion-icon>
+        </header>
+
+        <div class="settings-container">
+          <nav class="settings-nav">
+            <!-- NAV LIST -->
+            <h6>Perfil</h6>
+            <button class="nav-item active" data-target="geral">Geral</button>
+            <button class="nav-item" data-target="conta">Conta</button>
+            <button class="nav-item" data-target="privacidade">
+              Privacidade
+            </button>
+            <h6>Proteção</h6>
+            <button class="nav-item" data-target="acessos">Acessos</button>
+          </nav>
+          <main class="settings-main">
+            <!-- Configurações Gerais -->
+            <section id="geral" class="settings-section active">
+              <h3>Configurações Gerais</h3>
+              <form id="formGeral">
+                <div class="Column-1">
+                  <div class="image-placeholder">
+                    <input type="file" id="avatarUpload" accept="image/*" />
+                    <span>+</span>
+                    <p>Upload Image</p>
+                    <small>Max file size: 1MB</small>
+                  </div>
+
+                  <div class="image-placeholder">
+                    <input type="file" id="bannerUpload" accept="image/*" />
+                    <span>+</span>
+                    <p>Upload Image</p>
+                    <small>Max file size: 6MB</small>
+                  </div>
+                </div>
+
+                <div class="Column-1">
+                  <label for="usernameInput">Nome de Usuário</label>
+                  <input
+                    type="text"
+                    id="usernameInput"
+                    placeholder="Seu nome de usuário"
+                  />
+
+                  <label for="bioInput">Biografia</label>
+                  <textarea
+                    id="bioInput"
+                    placeholder="Fale um pouco sobre você..."
+                  ></textarea>
+                </div>
+
+                <div class="modal-actions">
+                  <button class="BTN-Cancel" type="">Cancel</button>
+                  <button class="BTN-Save" type="submit">Salvar</button>
+                </div>
+              </form>
+            </section>
+
+            <!-- Conta -->
+            <section id="conta" class="settings-section">
+              <h3>Conta</h3>
+              <form id="formConta">
+                <div class="Column-1">
+                  <label for="emailInput">Email</label>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="email@exemplo.com"
+                  />
+
+                  <label for="senhaInput">Senha</label>
+                  <input
+                    type="password"
+                    id="senhaInput"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div class="Column-1">
+                  <label for="twoFAInput">
+                    <input type="checkbox" id="twoFAInput" />
+                    Ativar autenticação de dois fatores (2FA)
+                  </label>
+                </div>
+
+                <button class="BTN-Save" type="submit">Atualizar Conta</button>
+              </form>
+            </section>
+
+            <!-- Privacidade -->
+            <section id="privacidade" class="settings-section">
+              <h3>Privacidade</h3>
+              <p>Em construção...</p>
+            </section>
+
+            <!-- Acessos -->
+            <section id="acessos" class="settings-section">
+              <h3>Acessos</h3>
+              <p>Histórico de login, dispositivos conectados, etc.</p>
+            </section>
+          </main>
+        </div>
+      </div>
+
+      <section id="animeModal" class="Modal">
+        <div class="ModalWapp">
+          <button id="Close" onclick="closeModal()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <div class="SquadModal">
+            <img src="" id="modalImage" alt="" />
+          </div>
+
+          <div class="SquadInfo">
+            <h3 id="modalTitle"></h3>
+            <p id="modalSynopsis"></p>
+            <button id="favoriteBtn">Adicionar aos Favoritos</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="main">
+        <section id="bannerSlide" class="banner-slide">
+          <div id="loader-Slidebanner" class="loader-Slidebanner"></div>
+          <div class="fallback-text">Slide de Últimas Atualizações</div>
+        </section>
+
+        <section class="sect">
+          <h2>Lançamento</h2>
+          <div id="releasesList" class="grid-Content"></div>
+        </section>
+
+        <section class="sect">
+          <h2>Recomendados</h2>
+          <div id="recommendList" class="grid-Content"></div>
+        </section>
+
+        <section class="sect">
+          <h2>Todos</h2>
+          <div class="gallery-center">
+            <div id="galleryList" class="gallery-grid"></div>
+            <div id="galleryCenter">
+              <div id="toggleGallery" class="toggle-gallery-btn">
+                <ion-icon
+                  id="toggleIcon"
+                  name="chevron-down"
+                  class="toggleIcon"
+                ></ion-icon>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sect">
+          <h2>Categorias</h2>
+          <div id="categoryList" class="Flex-Content"></div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <div class="foot_logo-Social">
+          <a
+            class="Logo"
+            href="./Index.html"
+            title="Página Inicial"
+            target="_blank"
+            >Onini</a
+          >
+          <span class="Divisor"></span>
+          <ul>
+            <li>
+              <a
+                class="Social"
+                href="https://github.com/jej3zin/Onini"
+                title="Repositório"
+                target="_blank"
+                ><ion-icon name="logo-github"></ion-icon
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <p class="CopyText">&copy; 2025 by Jej3zin</p>
+      </footer>
+    </div>
+    <div class="settings-backdrop hidden"></div>
+    <div class="backdrop" id="dropdown-backdrop"></div>
+
+    <script src="../Src/Script/jquery.js"></script>
+    <script type="module" src="../Src/Components/Header/ScriptTop.js"></script>
+    <script type="module" src="../Src/Main.js" defer></script>
+    <script type="module" src="../Src/Script/App.js" defer></script>
+  </body>
+</html>

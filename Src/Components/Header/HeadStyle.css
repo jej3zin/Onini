@@ -1,0 +1,220 @@
+.head {
+  height: 10vh;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: var(--Border);
+  box-shadow: var(--Shadow-2);
+  background: var(--Bg-Header);
+  transition: var(--Ani);
+  & ion-icon {
+    color: var(--Col-1);
+  }
+  & #CenterBox {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+}
+.logo {
+  font-size: 1.8rem;
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--Col-1);
+}
+#CenterRight {
+  display: flex;
+  gap: 1rem;
+}
+/* Search */
+.search-container {
+  display: flex;
+  align-items: center;
+  border-radius: 0.25rem;
+  border: var(--Border);
+  & input {
+    height: 2.2rem;
+    width: 12rem; /* 0rem */
+    padding: 0.2rem 0.4rem;
+    font-size: 0.9rem;
+    display: flex;
+    border: none;
+    background: transparent;
+    border-radius: 0.25rem 0 0 0.25rem;
+    &:focus {
+      outline: 2px solid var(--Col-2);
+      border-radius: 0.25rem 0 0 0.25rem;
+    }
+  }
+  & button {
+    padding: 0.3rem 0.45rem;
+    display: flex;
+    border-left: var(--Border);
+  }
+}
+/* Inbox */
+.Inbox-container {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+#inboxDropdown {
+  height: auto;
+  width: 26rem;
+  position: absolute;
+  top: 3rem;
+  right: -3.5rem;
+  z-index: 2;
+  border-radius: 0.5rem;
+  border: var(--Border);
+  background: var(--Bg-1);
+  box-shadow: var(--Shadow-2);
+}
+.HeadInbox {
+  margin: 0.3rem 0;
+  padding: 0.3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.3rem;
+  border-bottom: var(--Border);
+  box-shadow: var(--Shadow-2);
+}
+.Mail {
+  padding: 0.2rem;
+  cursor: pointer;
+  border-bottom: var(--Border);
+  &:hover {
+    background: var(--Bg-1);
+    box-shadow: var(--Shadow-2);
+  }
+  & div {
+    margin-bottom: 0.1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+#inboxDetail {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: rgba(0, 0, 0, 0.4);
+  &.hidden {
+    display: none;
+  }
+}
+.WrapperInbox {
+  height: max-content;
+  width: 40rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5rem;
+  background: var(--Bg-1);
+  border: var(--Border);
+  & header {
+    height: max-content;
+    padding: 0.6rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: var(--Border);
+    box-shadow: var(--Shadow-2);
+    & div {
+      width: 95%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+    }
+  }
+  & main {
+    padding: 0.3rem;
+    display: flex;
+    flex-direction: column;
+  }
+}
+/* Dropdown - Profile */
+#userDropdownWrapper {
+  display: flex;
+  position: relative;
+  border-radius: 50%;
+  border: var(--Border);
+  & .user-icon {
+    height: 2.4rem;
+    width: 2.4rem;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+}
+.dropdown {
+  width: 12rem;
+  display: none;
+  position: absolute;
+  right: 1rem;
+  z-index: 3;
+  border-radius: var(--Radius);
+  border: var(--Border);
+  box-shadow: var(--Shadow-2);
+  background: var(--Bg-1);
+}
+.submenu-tema {
+  display: flex;
+  transform: translateY(0);
+  &.hiddenTheme {
+    display: none;
+    animation: growUp 300ms ease-in-out forwards;
+    transform-origin: top center;
+  }
+}
+.dropdown.activeDrop {
+  display: flex;
+}
+.dropdown,
+.submenu-tema {
+  list-style: none;
+  flex-direction: column;
+  transition: var(--Ani);
+  animation: growDown 300ms ease-in-out forwards;
+  transform-origin: top center;
+}
+@keyframes growDown {
+  0% {
+    transform: scaleY(0);
+  }
+  80% {
+    transform: scaleY(1.1);
+  }
+  100% {
+    transform: scaleY(1);
+  }
+}
+.Drop_item {
+  height: 100%;
+  width: 100%;
+  padding: 0.6rem;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--Col-1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: var(--Border);
+  &:hover {
+    color: var(--Col-3);
+    background: var(--Bg-2);
+  }
+}
+#login {
+  position: relative;
+}
+#logoutBTN.hidden {
+  display: none;
+}
+/* Configurações */

@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Perfil | Onini</title>
+    <link rel="icon" href="/Public/Asset/Images/Onini-Icon.png" />
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="../Styles/Index.css" />
+    <link rel="stylesheet" href="../Styles/App.css" />
+    <link rel="stylesheet" href="../Components/Header/HeadStyle.css" />
+    <link rel="stylesheet" href="../Components/Footer/Footer.css" />
+
+    <!-- Scripts Externos -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"
+      defer
+    ></script>
+
+    <!-- Ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      defer
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      defer
+    ></script>
+  </head>
+  <body class="theme-day">
+    <div id="preloader" class="WapLoader">
+      <span class="Loader"></span>
+    </div>
+
+    <div id="conteudo">
+      <!-- style="display: none" -->
+      <header class="head">
+        <div id="CenterBox">
+          <button id="toggleMenu">
+            <ion-icon name="menu"></ion-icon>
+          </button>
+          <a class="logo" href="./Index.html" title="Página inicial">Onini</a>
+        </div>
+
+        <div id="CenterRight">
+          <div class="search-container">
+            <input
+              type="text"
+              placeholder="Buscar animes, mangás..."
+              id="searchInput"
+            />
+            <button><ion-icon name="search"></ion-icon></button>
+          </div>
+
+          <div class="Inbox-container">
+            <button id="inboxBtn" title="Inbox">
+              <ion-icon name="mail"></ion-icon>
+            </button>
+
+            <div id="inboxDropdown" class="hidden">
+              <header class="HeadInbox">
+                <ion-icon name="mail"></ion-icon> Inbox
+              </header>
+
+              <article class="Mail" data-id="1">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Solo Leveling disponível, vem conferir!</p>
+              </article>
+
+              <article class="Mail" data-id="2">
+                <div>
+                  <p><strong>✉️ Notícia!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Nova Atualização do Onini disponível, vem conferir!</p>
+              </article>
+
+              <article class="Mail" data-id="3">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Solo Leveling: Ragnarok disponível, vem conferir!</p>
+              </article>
+            </div>
+          </div>
+
+          <div id="inboxDetail" class="hidden">
+            <section class="WrapperInbox">
+              <header>
+                <div>
+                  <h3 id="detailTitle"></h3>
+                  <p id="detailDate" class="data"></p>
+                </div>
+                <button id="closeDetail">
+                  <ion-icon name="close"></ion-icon>
+                </button>
+              </header>
+
+              <main>
+                <p id="detailContent"></p>
+              </main>
+            </section>
+          </div>
+
+          <div id="userDropdownWrapper">
+            <button
+              id="userDropdownBtn"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Abrir menu do usuário"
+            >
+              <img
+                src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+                class="user-icon"
+                id="userProfilePic"
+                alt="Usuário"
+              />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <ul id="userDropdown" class="dropdown">
+        <li>
+          <a href="../Src/Pages/Profile.html" class="Drop_item"
+            ><ion-icon name="person"></ion-icon>Perfil</a
+          >
+        </li>
+
+        <li>
+          <a href="" class="Drop_item"
+            ><ion-icon name="mail"></ion-icon>Inbox</a
+          >
+        </li>
+
+        <button id="themeToggleBtn" class="Drop_item">
+          <ion-icon name="caret-forward"></ion-icon>Tema
+        </button>
+
+        <ul id="themeOptions" class="submenu-tema hiddenTheme">
+          <li>
+            <button class="Drop_item" id="themeDay">
+              <ion-icon name="sunny"></ion-icon>Day
+            </button>
+          </li>
+          <li>
+            <button class="Drop_item" id="themeNight">
+              <ion-icon name="moon"></ion-icon>Night
+            </button>
+          </li>
+          <li>
+            <button class="Drop_item" id="themePurple">
+              <ion-icon name="brush"></ion-icon>Purple
+            </button>
+          </li>
+        </ul>
+
+        <li class="Drop_item">
+          <ion-icon name="settings"></ion-icon>Configurações
+        </li>
+
+        <li class="Drop_item"><ion-icon name="help-circle"></ion-icon>Ajuda</li>
+
+        <li id="login">
+          <button class="Drop_item" id="loginBTN">
+            <ion-icon name="log-in"></ion-icon>Login
+          </button>
+
+          <button class="Drop_item" id="logoutBTN" class="hidden">
+            <ion-icon name="log-out"></ion-icon>Logout
+          </button>
+        </li>
+      </ul>
+
+      <nav class="sidebar" id="sidebar">
+        <ul class="sideMenu-1">
+          <li>
+            <a class="menu-item" href="./Index.html">
+              <ion-icon name="home"></ion-icon>Início
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="tv"></ion-icon>Animes
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="book"></ion-icon>Animes
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="book"></ion-icon>Manhwas
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="./Pages/Ranking.html">
+              <ion-icon name="stats-chart"></ion-icon>Ranking
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="calendar"></ion-icon>Temporada
+            </a>
+          </li>
+          <li>
+            <a class="menu-item" href="#">
+              <ion-icon name="flame"></ion-icon>Populares
+            </a>
+          </li>
+        </ul>
+
+        <span class="DivisorLine"></span>
+
+        <ul class="sideMenu-2">
+          <li>
+            <button class="menu-item" data-btn="favorite">
+              <ion-icon name="heart"></ion-icon>Favoritos
+            </button>
+
+            <ul class="sideDropdownFavorite hidden">
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Animes
+                  Favoritos</a
+                >
+              </li>
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Mangás
+                  Favoritos</a
+                >
+              </li>
+              <li>
+                <a class="ListFavorite" href="#"
+                  ><ion-icon name="return-down-forward"></ion-icon>Manhwas
+                  Favoritos</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li>
+            <button class="menu-item" data-btn="friend">
+              <ion-icon name="people"></ion-icon>Amigos
+            </button>
+
+            <section class="sideDropdownFriend hidden">
+              <h2 class="TitleFriends">Amigos</h2>
+              <ul class="GroupList">
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://steamuserimages-a.akamaihd.net/ugc/2914936281388135/FC6A3E3F2032D7654871C17C6536EAFCD1511036/?imw=5000&imh=5000&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">jej3zin (DEV)</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/736x/26/b7/28/26b728b78fb0121a2b38564bcbdd9655.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">Elisa</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://steamuserimages-a.akamaihd.net/ugc/2465234473083838759/1A127BB71D029AF786442D810E4C3205139E4B65/?imw=512&amp;imh=512&amp;ima=fit&amp;impolicy=Letterbox&amp;imcolor=%23000000&amp;letterbox=true"
+                        alt="Avatar"
+                      />
+                      <span class="Status"></span>
+                    </div>
+                    <span class="username">✧.*Moon✧.*</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/originals/4f/f7/57/4ff757889616f9e8bb289520adeee7ef.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status offine"></span>
+                    </div>
+                    <span class="username">Abacaxi2000BitOne87t9789</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="ListFriend" title="Visitar Perfil">
+                    <div class="BoxAvatar">
+                      <img
+                        class="ImgAvatar"
+                        src="https://i.pinimg.com/originals/c5/2d/1d/c52d1d560cd05ae7d566016de6ec4264.jpg"
+                        alt="Avatar"
+                      />
+                      <span class="Status offine"></span>
+                    </div>
+                    <span class="username">Mimica</span>
+
+                    <div class="More-0x1f">
+                      <button title="Mensagem">
+                        <ion-icon name="chatbox"></ion-icon>
+                      </button>
+                      <button title="Opções">
+                        <ion-icon name="ellipsis-vertical"></ion-icon>
+                      </button>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </section>
+          </li>
+          <li>
+            <button class="menu-item" data-btn="profile">
+              <ion-icon name="person-circle"></ion-icon>Perfil
+            </button>
+
+            <ul class="sideDropdownProfile">
+              <li>
+                <a class="" href="../Src/Pages/Profile.html">
+                  <img
+                    src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+                    class="AvatarUser"
+                    id="userProfilePic"
+                    alt="Usuário"
+                  />
+                  <span class="NameUser">Meu Perfil</span>
+                </a>
+              </li>
+              <li>
+                <a href="#"><ion-icon name="pencil"></ion-icon>Editar Perfil</a>
+              </li>
+              <li>
+                <a href="#"
+                  ><ion-icon name="settings"></ion-icon>Configurações</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+
+      <section id="animeModal" class="Modal">
+        <div class="ModalWapp">
+          <button id="Close" onclick="closeModal()">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <div class="SquadModal">
+            <img src="" id="modalImage" alt="" />
+          </div>
+
+          <div class="SquadInfo">
+            <h3 id="modalTitle"></h3>
+            <p id="modalSynopsis"></p>
+            <button id="favoriteBtn">Adicionar aos Favoritos</button>
+          </div>
+        </div>
+      </section>
+
+      <main class="main">
+        <div id="profileID">
+          <div id="profileBanner">
+            <img
+              src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+              alt="Banner"
+              class="banner"
+            />
+            <input
+              type="file"
+              id="uploadBanner"
+              accept="image/*"
+              class="hidden"
+            />
+            <button
+              onclick="document.getElementById('uploadBanner').click()"
+              class="upBanner"
+            >
+              <ion-icon name="image"></ion-icon>
+            </button>
+          </div>
+
+          <div id="profilePicture">
+            <img
+              src="https://staticg.sportskeeda.com/editor/2024/05/70c64-17157639785895-1920.jpg"
+              alt="Avatar"
+              class="picture"
+            />
+            <input type="file" id="uploadPic" accept="image/*" class="hidden" />
+            <button
+              onclick="document.getElementById('uploadPic').click()"
+              class="upPic"
+            >
+              <ion-icon name="camera"></ion-icon>
+            </button>
+          </div>
+        </div>
+
+        <div class="info-user">
+          <div class="user-social">
+            <h2 class="username">Usuário Onini</h2>
+
+            <div class="social">
+              <a href="#"><ion-icon name="globe"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-instagram"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-facebook"></ion-icon></a>
+              <a href="#"><ion-icon name="logo-tiktok"></ion-icon></a>
+            </div>
+          </div>
+
+          <div class="biocenter">
+            <p class="bio">Bio do usuário Lorem ipsum dolor sit amet ✨</p>
+            <span><ion-icon name="stop"></ion-icon></span>
+            <p class="accountTime">Conta criada há 3 anos</p>
+          </div>
+        </div>
+
+        <section class="sect-user">
+          <div class="BoxTabs">
+            <button class="tabsStyle tab-active" onclick="showTab('feed')">
+              Feed
+            </button>
+            <button class="tabsStyle" onclick="showTab('favoritos')">
+              Favoritos
+            </button>
+            <button class="tabsStyle" onclick="showTab('amigos')">
+              Amigos
+            </button>
+            <button class="tabsStyle" onclick="showTab('level')">Level</button>
+          </div>
+
+          <div id="tabContent">
+            <div id="feedTab">
+              <h3 class="tabTitle">Mangás & Manhwa</h3>
+              <section class="sect-feed">
+                <article onclick="aniActive()" class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/83/6b/de/836bde7c7826aa4f8c58d7f63b0abc08.jpg"
+                  />
+                  <p>Bleach</p>
+                </article>
+
+                <article onclick="aniActive()" class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/a8/b0/9e/a8b09ef46e72a4a0a281e689263bb825.jpg"
+                  />
+                  <p>Hajime no Ippo</p>
+                </article>
+
+                <article onclick="aniActive()" class="Card-Man">
+                  <img
+                    src="https://s5.afisha.ru/mediastorage/a1/48/8698cb3d807343e5becb1a0648a1.jpg"
+                  />
+                  <p>Baki Hamna</p>
+                </article>
+              </section>
+
+              <h3 class="tabTitle">Animes, Filmes & Ovas</h3>
+              <section class="sect-feed">
+                <article class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/83/6b/de/836bde7c7826aa4f8c58d7f63b0abc08.jpg"
+                  />
+                  <p>Bleach</p>
+                </article>
+
+                <article class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/a8/b0/9e/a8b09ef46e72a4a0a281e689263bb825.jpg"
+                  />
+                  <p>Hajime no Ippo</p>
+                </article>
+
+                <article class="Card-Man">
+                  <img
+                    src="https://s5.afisha.ru/mediastorage/a1/48/8698cb3d807343e5becb1a0648a1.jpg"
+                  />
+                  <p>Baki Hamna</p>
+                </article>
+              </section>
+            </div>
+
+            <div id="favoritosTab" class="hidden">
+              <div id="BoxSearch">
+                <input type="text" placeholder="Pesquisar..." />
+                <button><ion-icon name="search"></ion-icon></button>
+
+                <div class="btsSearch">
+                  <button class="bg-purple-600 text-white px-3 py-1 rounded">
+                    Recentes
+                  </button>
+                  <button class="bg-purple-600 text-white px-3 py-1 rounded">
+                    Antigos
+                  </button>
+                  <button class="bg-purple-600 text-white px-3 py-1 rounded">
+                    Avaliados
+                  </button>
+                </div>
+              </div>
+
+              <section class="fav-Gallery">
+                <article class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/83/6b/de/836bde7c7826aa4f8c58d7f63b0abc08.jpg"
+                  />
+                  <p>Bleach</p>
+                </article>
+
+                <article class="Card-Man">
+                  <img
+                    src="https://i.pinimg.com/originals/a8/b0/9e/a8b09ef46e72a4a0a281e689263bb825.jpg"
+                  />
+                  <p>Hajime no Ippo</p>
+                </article>
+
+                <article class="Card-Man">
+                  <img
+                    src="https://s5.afisha.ru/mediastorage/a1/48/8698cb3d807343e5becb1a0648a1.jpg"
+                  />
+                  <p>Baki Hamna</p>
+                </article>
+              </section>
+            </div>
+
+            <div id="amigosTab" class="hidden">
+              <section class="Sect-Friends">
+                <li class="listFriend">
+                  <a href="" class="ListImgFriend">
+                    <img
+                      src="https://i.pinimg.com/736x/26/b7/28/26b728b78fb0121a2b38564bcbdd9655.jpg"
+                    />
+                    <div>
+                      <p class="usernameFriend">Amigo 1</p>
+                      <p class="usernameStatus">Online</p>
+                    </div>
+                  </a>
+
+                  <div class="BTN-Friend">
+                    <button class="btnMsg">Menssagem</button>
+                    <button class="circle">
+                      <ion-icon name="add-circle"></ion-icon>
+                    </button>
+                    <button class="circle">
+                      <ion-icon name="remove-circle"></ion-icon>
+                    </button>
+                  </div>
+                </li>
+
+                <li class="listFriend">
+                  <a href="" class="ListImgFriend">
+                    <img
+                      src="https://i.pinimg.com/originals/4f/f7/57/4ff757889616f9e8bb289520adeee7ef.jpg"
+                    />
+                    <div>
+                      <p class="usernameFriend">Amigo 2</p>
+                      <p class="usernameStatus">Online</p>
+                    </div>
+                  </a>
+
+                  <div class="BTN-Friend">
+                    <button class="btnMsg">Menssagem</button>
+                    <button class="circle">
+                      <ion-icon name="add-circle"></ion-icon>
+                    </button>
+                    <button class="circle">
+                      <ion-icon name="remove-circle"></ion-icon>
+                    </button>
+                  </div>
+                </li>
+
+                <li class="listFriend">
+                  <a href="" class="ListImgFriend">
+                    <img
+                      src="https://i.pinimg.com/originals/c5/2d/1d/c52d1d560cd05ae7d566016de6ec4264.jpg"
+                    />
+                    <div>
+                      <p class="usernameFriend">Amigo 3</p>
+                      <p class="usernameStatus offline">Offline</p>
+                    </div>
+                  </a>
+
+                  <div class="BTN-Friend">
+                    <button class="btnMsg">Menssagem</button>
+                    <button class="circle">
+                      <ion-icon name="add-circle"></ion-icon>
+                    </button>
+                    <button class="circle">
+                      <ion-icon name="remove-circle"></ion-icon>
+                    </button>
+                  </div>
+                </li>
+              </section>
+            </div>
+
+            <div id="levelTab" class="hidden">
+              <section class="Sect-Level">
+                <h2 class="Sect-h2">Você está no nível 17 🧠🔥</h2>
+                <progress value="70" max="100"></progress>
+              </section>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="../Script/jquery.js"></script>
+    <script type="module" src="../Components/Header/ScriptTop.js"></script>
+    <script type="module" src="../Main.js" defer></script>
+    <script type="module" src="../Script/App.js" defer></script>
+  </body>
+</html>
