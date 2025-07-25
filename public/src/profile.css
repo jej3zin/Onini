@@ -1,0 +1,227 @@
+.Bg-Sect {
+  width: 100%;
+  height: 100vh; /* altura do banner */
+  position: relative;
+  background: url('/public/asset/Wallpaper.png') center/cover no-repeat;
+}
+
+.Bg-Profile {
+  width: 100%;
+  margin: 0 auto;
+  border: 1px solid red;
+}
+/* Left - Picture */
+.Profile-Head {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.25rem;
+  display: flex;
+  gap: 1rem;
+  box-sizing: border-box;
+}
+.pictureAvatar {
+  height: 10rem;
+  width: 10rem;
+  object-fit: cover;
+  border: 2px solid var(--Col-0);
+}
+.pictureName {
+  width: 60%;
+  color: var(--Col-1);
+  display: flex;
+}
+.Text-Bio {
+  padding: 1rem 0.75rem;
+}
+.username {
+  font-size: 1.25rem;
+}
+.Country {
+  margin-top: 0.3rem;
+  font-size: 0.9rem;
+}
+.Bio {
+  margin-top: 0.75rem;
+}
+/* Right - Level */
+.Wrap-Right {
+  width: 40%;
+  padding: 0.5rem 0rem;
+  color: var(--Col-1);
+}
+.level {
+  margin-bottom: 15px;
+  font-size: 18px;
+  position: relative;
+}
+.level span {
+  margin-left: 0.6rem;
+  padding: 0.3rem;
+  font-size: 18px;
+  border-radius: 50%;
+  border: 2px solid var(--Col-0);
+}
+.badge {
+  margin-bottom: 0.75rem;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.25rem;
+  background: rgba(30, 30, 30, 0.6);
+}
+.badge img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+.badge-info {
+  display: flex;
+  flex-direction: column;
+}
+.badge-info strong {
+  font-size: 1rem;
+  letter-spacing: 1px;
+}
+.badge-info span {
+  font-size: 12px;
+  color: #aaa;
+}
+.edit-button {
+  font-size: 14px;
+  padding: 8px 12px;
+  color: var(--Col-1);
+  cursor: pointer;
+  border-radius: 0.25rem;
+  background: rgba(30, 30, 30, 0.6);
+  border: var(--Border);
+  transition: var(--Ani-1);
+  &:hover {
+    background-color: #202020;
+  }
+}
+/* Feed */
+.Profile-Feed {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0.25rem;
+  display: flex;
+}
+.custom-sect {
+  flex: 3;
+  padding-right: 1rem;
+}
+.SectArtCustom {
+  margin-bottom: 1rem;
+  padding: 1rem;
+  color: var(--Col-1);
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.guide-info {
+  font-weight: 500;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+#favoriteHTML.guide-info {
+  align-items: flex-start;
+}
+.info-link {
+  border: 1px solid transparent;
+  &:hover {
+    border: 1px solid var(--Col-0);
+  }
+}
+
+/* NAV */
+.side-info {
+  flex: 2;
+  padding: 0.5rem 1rem;
+  color: var(--Col-1);
+  border-radius: 0.25rem;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+
+  & ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}
+.Status {
+  font-size: 1.25rem;
+  color: var(--Col-0);
+}
+.SpaceLine {
+  height: 1.5px;
+  width: 100%;
+  margin: 0.6rem 0;
+  display: flex;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.3);
+}
+.profileLink {
+  text-decoration: none;
+  list-style: none;
+  color: var(--Col-1);
+  &:hover {
+    text-decoration: underline;
+  }
+}
+.FourBadges {
+  height: 7rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 1rem;
+}
+.BadgeSquad {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+.Groups {
+  margin-top: 0.75rem;
+  display: flex;
+  align-items: flex-start;
+}
+.GroupLink {
+  text-decoration: none;
+  color: var(--Col-1);
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  &:hover {
+    color: var(--Col-0);
+  }
+
+  & img {
+    height: 64px;
+    width: 64px;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
+
+  & span {
+    color: #aaa;
+  }
+}
+.groupInfo {
+  display: flex;
+  flex-direction: column;
+}
+.groupCount {
+  margin-left: 0.25rem;
+  font-size: 1.25rem;
+  color: #aaa;
+  text-decoration: none;
+}

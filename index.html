@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Onini | Animes, Mangás e Manhwa</title>
+    <link rel="icon" href="/public/asset/images/Onini-Icon.png" />
+
+    <!-- styles -->
+    <link rel="stylesheet" href="/public/src/index.css" />
+    <link rel="stylesheet" href="/public/src/app.css" />
+    <link rel="stylesheet" href="/public/src/components/header/head.css" />
+    <link rel="stylesheet" href="/public/src/components/footer/foot.css" />
+
+    <!-- Scripts Externos -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"
+      defer
+    ></script>
+    <script
+      src="https://www.gstatic.com/firebasejs/9.22.1/firebase-auth-compat.js"
+      defer
+    ></script>
+
+    <!-- Ionicons -->
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+      defer
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+      defer
+    ></script>
+  </head>
+  <body>
+    <div id="preloader" class="WapLoader">
+      <div id="status"></div>
+      <span class="Loader"></span>
+    </div>
+
+    <div class="content">
+      <header class="head">
+        <div id="CenterBox">
+          <a class="logo" href="/Index.html" title="Página inicial"
+            ><img src="/public/asset/Logotipo.png" alt="Logotipo"
+          /></a>
+
+          <nav class="Menu-Header">
+            <ul class="MH-ul">
+              <li>
+                <a class="MH-item" href="#">Animes</a>
+              </li>
+              <li>
+                <a class="MH-item" href="#">Mangás</a>
+              </li>
+              <li>
+                <a class="MH-item" href="#">News</a>
+              </li>
+              <li>
+                <a class="MH-item" href="#">Populares</a>
+              </li>
+              <li>
+                <a class="MH-item activeItem" href="#">Blog</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div id="CenterRight">
+          <div class="search-container">
+            <input type="text" placeholder="Buscar..." id="searchInput" />
+            <button><ion-icon name="search"></ion-icon></button>
+          </div>
+
+          <div class="Inbox-container">
+            <button id="inboxBtn" title="Inbox">
+              <ion-icon name="mail"></ion-icon>
+            </button>
+
+            <div id="inboxDropdown" class="">
+              <header class="HeadInbox">
+                <ion-icon name="mail"></ion-icon> Inbox
+              </header>
+
+              <article class="Mail" data-id="1">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>
+                  Kusuriya no Hitorigoto 2nd Season disponível, vem conferir!
+                </p>
+              </article>
+
+              <article class="Mail" data-id="2">
+                <div>
+                  <p><strong>✉️ Notícia!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Nova Atualização do Onini disponível, vem conferir!</p>
+              </article>
+
+              <article class="Mail" data-id="3">
+                <div>
+                  <p><strong>🔥 Novidade!</strong></p>
+                  <span class="data">01/5/2025</span>
+                </div>
+                <p>Takopii no Genzai disponível, vem conferir!</p>
+              </article>
+            </div>
+          </div>
+
+          <div id="inboxDetail" class="hidden">
+            <section class="WrapperInbox">
+              <header>
+                <div>
+                  <h3 id="detailTitle"></h3>
+                  <p id="detailDate" class="data"></p>
+                </div>
+                <button id="closeDetail">
+                  <ion-icon name="close"></ion-icon>
+                </button>
+              </header>
+
+              <main>
+                <p id="detailContent"></p>
+              </main>
+            </section>
+          </div>
+
+          <div id="avatarDropdownWrapper">
+            <button
+              id="avatarDrop"
+              type="button"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-label="Abrir menu do usuário"
+            >
+              <img
+                src="/public/asset/images/Kurosaki Ichigo.jpg"
+                class="user-icon"
+                id="user-avatar"
+                alt="Avatar"
+                loading="lazy"
+              />
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <ul id="avatarDropdown" class="dropdown" role="menu" aria-hidden="true">
+        <li>
+          <a class="Drop_item" href="">
+            <ion-icon name="person"></ion-icon>Perfil
+          </a>
+        </li>
+
+        <button class="Drop_item open-settings">
+          <ion-icon name="settings"></ion-icon>Configurações
+        </button>
+
+        <li>
+          <a class="Drop_item" href="">
+            <ion-icon name="help-circle"></ion-icon>Ajuda
+          </a>
+        </li>
+
+        <li id="login">
+          <button class="Drop_item" id="loginBTN">
+            <ion-icon name="log-in"></ion-icon>Login
+          </button>
+
+          <button class="Drop_item hidden" id="logoutBTN" class="hidden">
+            <ion-icon name="log-out"></ion-icon>Logout
+          </button>
+        </li>
+      </ul>
+      <!--  -->
+
+      <div id="loginModal" class="hidden modal-backdrop">
+        <div class="modal-content">
+          <h2>Login</h2>
+          <form action="">
+            <input
+              type="text"
+              id="loginUsername"
+              autocomplete="username"
+              placeholder="Usuário"
+            />
+            <input
+              type="password"
+              id="loginPassword"
+              autocomplete="current-password"
+              placeholder="Senha"
+            />
+            <button id="submitLogin">Entrar</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="settings-modal hidden">
+        <header class="settings-header">
+          <div>
+            <ion-icon name="settings"></ion-icon>
+            <h2>Configurações</h2>
+          </div>
+          <ion-icon name="close"></ion-icon>
+        </header>
+
+        <div class="settings-container">
+          <nav class="settings-nav">
+            <!-- NAV LIST -->
+            <h6>Perfil</h6>
+            <button class="nav-item active" data-target="geral">Geral</button>
+            <button class="nav-item" data-target="conta">Conta</button>
+            <button class="nav-item" data-target="privacidade">
+              Privacidade
+            </button>
+            <h6>Proteção</h6>
+            <button class="nav-item" data-target="acessos">Acessos</button>
+          </nav>
+          <main class="settings-main">
+            <!-- Configurações Gerais -->
+            <section id="geral" class="settings-section active">
+              <h3>Configurações Gerais</h3>
+              <form id="formGeral">
+                <div class="Column-1">
+                  <div class="image-placeholder">
+                    <input type="file" id="avatarUpload" accept="image/*" />
+                    <span>+</span>
+                    <p>Upload Image</p>
+                    <small>Max file size: 1MB</small>
+                  </div>
+
+                  <div class="image-placeholder">
+                    <input type="file" id="bannerUpload" accept="image/*" />
+                    <span>+</span>
+                    <p>Upload Image</p>
+                    <small>Max file size: 6MB</small>
+                  </div>
+                </div>
+
+                <div class="Column-1">
+                  <label for="usernameInput">Nome de Usuário</label>
+                  <input
+                    type="text"
+                    id="usernameInput"
+                    placeholder="Seu nome de usuário"
+                  />
+
+                  <label for="bioInput">Biografia</label>
+                  <textarea
+                    id="bioInput"
+                    placeholder="Fale um pouco sobre você..."
+                  ></textarea>
+                </div>
+
+                <div class="modal-actions">
+                  <button class="BTN-Cancel" type="">Cancel</button>
+                  <button class="BTN-Save" type="submit">Salvar</button>
+                </div>
+              </form>
+            </section>
+
+            <!-- Conta -->
+            <section id="conta" class="settings-section">
+              <h3>Conta</h3>
+              <form id="formConta">
+                <div class="Column-1">
+                  <label for="emailInput">Email</label>
+                  <input
+                    type="email"
+                    id="emailInput"
+                    placeholder="email@exemplo.com"
+                  />
+
+                  <label for="senhaInput">Senha</label>
+                  <input
+                    type="password"
+                    id="senhaInput"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div class="Column-1">
+                  <label for="twoFAInput">
+                    <input type="checkbox" id="twoFAInput" />
+                    Ativar autenticação de dois fatores (2FA)
+                  </label>
+                </div>
+
+                <button class="BTN-Save" type="submit">Atualizar Conta</button>
+              </form>
+            </section>
+
+            <!-- Privacidade -->
+            <section id="privacidade" class="settings-section">
+              <h3>Privacidade</h3>
+              <p>Em construção...</p>
+            </section>
+
+            <!-- Acessos -->
+            <section id="acessos" class="settings-section">
+              <h3>Acessos</h3>
+              <p>Histórico de login, dispositivos conectados, etc.</p>
+            </section>
+          </main>
+        </div>
+      </div>
+
+      <section id="animeModal" class="Modal">
+        <div class="ModalWapp">
+          <button id="Close">
+            <ion-icon name="close"></ion-icon>
+          </button>
+          <div class="SquadModal">
+            <img src="" id="modalImage" alt="Capa" />
+          </div>
+
+          <div class="SquadInfo">
+            <h3 id="modalTitle"></h3>
+            <p id="modalSynopsis"></p>
+            <div class="modal-BTNS">
+              <button id="favoriteBtn">Adicionar aos Favoritos</button>
+              <button id="saveBtn">Salvar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <main class="main">
+        <section class="Bg-Sect">
+          <img src="/public/asset/Wallpaper.png" alt="Background" />
+
+          <div class="primarySlide">
+            <article class="SlideBox active">
+              <div class="SkeletonAni">
+                <div class="BoxImage">
+                  <img
+                    class="ImgAnime"
+                    src="/public/asset/slide/Bleach.png"
+                    alt="Logo Anime"
+                  />
+                </div>
+                <div class="Tags">
+                  <span class="TagsCategori">+16</span>
+                  <span class="TagsCategori">Action</span>
+                  <span class="TagsCategori">Ecchi</span>
+                </div>
+                <p class="SlideDescription">
+                  Ichigo Kurosaki, um adolescente com o dom de ver espíritos,
+                  tem sua vida virada do avesso quando recebe os poderes de uma
+                  shinigami (deusa da morte) para salvar sua família. Agora, ele
+                  precisa enfrentar criaturas conhecidas como Hollows e proteger
+                  o equilíbrio entre o mundo dos vivos e o espiritual — mas isso
+                  é só o começo de uma guerra muito maior.
+                </p>
+                <div class="SlideButtons">
+                  <a href="" class="SlideWatch">Assistir</a>
+                  <a href="" class="SlideSave">Salvar</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="SlideBox">
+              <div class="SkeletonAni">
+                <div class="BoxImage">
+                  <img
+                    class="ImgAnime"
+                    src="/public/asset/slide/NarutoShippuden.png"
+                    alt="Logo Anime"
+                  />
+                </div>
+
+                <div class="Tags">
+                  <span class="TagsCategori">+12</span>
+                  <span class="TagsCategori">Aventura</span>
+                </div>
+                <p class="SlideDescription">
+                  Naruto Uzumaki é um ninja órfão, bagunceiro e cheio de
+                  energia, que sonha em se tornar o Hokage, o ninja mais forte
+                  da sua vila. O problema? Ele carrega dentro de si a Raposa de
+                  Nove Caudas, uma criatura lendária que destruiu sua vila no
+                  passado. Entre batalhas, rivalidades e laços de amizade,
+                  Naruto vai mostrar que ser rejeitado não é destino, é só
+                  combustível pra se tornar lendário.
+                </p>
+                <div class="SlideButtons">
+                  <a href="" class="SlideWatch">Assistir</a>
+                  <a href="" class="SlideSave">Salvar</a>
+                </div>
+              </div>
+            </article>
+
+            <article class="SlideBox">
+              <div class="SkeletonAni">
+                <div class="BoxImage">
+                  <img
+                    class="ImgAnime"
+                    src="/public/asset/slide/OnePiece.png"
+                    alt="Logo Anime"
+                  />
+                </div>
+
+                <div class="Tags">
+                  <span class="TagsCategori">+14</span>
+                  <span class="TagsCategori">Shonen</span>
+                </div>
+                <p class="SlideDescription">
+                  Monkey D. Luffy é um pirata nada comum: ele estica como
+                  borracha graças a uma fruta mágica. Seu objetivo? Encontrar o
+                  One Piece, o maior tesouro do mundo, e se tornar o Rei dos
+                  Piratas. Para isso, ele junta uma tripulação insana e parte
+                  para aventuras épicas, enfrentando inimigos poderosos e
+                  navegando pelo mar mais perigoso do planeta, a Grand Line.
+                </p>
+                <div class="SlideButtons">
+                  <a href="" class="SlideWatch">Assistir</a>
+                  <a href="" class="SlideSave">Salvar</a>
+                </div>
+              </div>
+            </article>
+
+            <div class="wrap-dot">
+              <span class="dot dot-active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </section>
+
+        <section class="Py-Sect">
+          <article class="art">
+            <h2>Lançamentos</h2>
+            <div id="releasesList" class="grid-Content"></div>
+          </article>
+
+          <article class="art">
+            <h2>Recomendados</h2>
+            <div id="recommendList" class="grid-Content"></div>
+          </article>
+
+          <article class="art">
+            <h2>Galeria</h2>
+            <div class="gallery-center">
+              <div id="galleryList" class="gallery-grid"></div>
+              <div id="galleryCenter">
+                <div id="toggleGallery" class="toggle-gallery-btn">
+                  <ion-icon
+                    id="toggleIcon"
+                    name="chevron-down"
+                    class="toggleIcon"
+                  ></ion-icon>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="art">
+            <h2>Categorias</h2>
+            <div id="categoryList" class="Flex-Content"></div>
+          </article>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <div class="foot_logo-Social">
+          <a
+            class="Logo"
+            href="./Index.html"
+            title="Página Inicial"
+            target="_blank"
+            >Onini</a
+          >
+          <span class="Divisor"></span>
+          <ul>
+            <li>
+              <a
+                class="Social"
+                href="https://github.com/jej3zin/Onini"
+                title="Repositório"
+                target="_blank"
+                ><ion-icon name="logo-github"></ion-icon
+              ></a>
+            </li>
+          </ul>
+        </div>
+        <p class="CopyText">&copy; 2025 by Jej3zin</p>
+      </footer>
+    </div>
+
+    <script type="module" src="/public/src/index.js" defer></script>
+    <script type="module" src="/public/src/app.js" defer></script>
+    <script
+      type="module"
+      src="/public/src/components/header/head.js"
+      defer
+    ></script>
+  </body>
+</html>

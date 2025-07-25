@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5,100..900;1,62.5,100..900&display=swap');
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Fira Sans', Arial, Helvetica, sans-serif;
+}
+:root {
+  --Bg-1: #000000;
+  --Bg-2: #fafafa;
+  --Bg-3: #e5e5e5;
+  --Col-0: #ff8300;
+  --Col-1: #d8d8d8;
+  --Col-2: #525252;
+  --Border: 2px solid rgba(255, 255, 255, 0.25);
+  --Shadow: 0 0.1rem 2rem 0 rgba(0, 0, 0, 0.1);
+  --Col-3: #5d00c8;
+  --Title-1: 2rem;
+  --Title-2: 1.5rem;
+  --Title-3: 1.2rem;
+  --Text-1: 1rem;
+  --Text-2: 0.9rem;
+  --Icon: 1.5rem;
+  --Shadow-2: 0 0.1rem 2rem 0 rgba(0, 0, 0, 0.1);
+  --Shadow-3: 0 0 10px #5d00c8b3;
+  --Radius: 0.5rem;
+  --Ani-1: 0.2s ease-in-out all;
+  --Ani-2: 0.3s ease-in-out all;
+}
+html {
+  position: relative;
+  background: var(--Bg-1);
+}
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: var(var(--Ani-1));
+}
+ion-icon {
+  font-size: var(--Icon);
+}
+button {
+  display: flex;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+}
+/* Config */
+::-webkit-scrollbar {
+  height: 0.5rem;
+  width: 0.5rem;
+  background: var(--Bg-1);
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 0.5rem;
+  background: var(--Col-0);
+}
+::selection {
+  color: var(--Bg-1);
+  background: var(--Col-0);
+}
+/* PRE-LOADER */
+.WapLoader {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: var(--Bg-1);
+}
+.Loader {
+  width: 3.1rem;
+  height: 3.1rem;
+  display: flex;
+  position: relative;
+  transform: rotate(45deg);
+}
+.Loader::before {
+  content: '';
+  width: 1.5rem;
+  height: 1.5rem;
+  position: absolute;
+  top: -24px;
+  animation: animloader 4s ease infinite;
+}
+.Loader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 24px;
+  height: 24px;
+  background: var(--Col-3);
+  box-shadow: var(--Shadow-3);
+  animation: animloader2 2s ease infinite;
+}
+@keyframes animloader {
+  0% {
+    box-shadow: 0 24px rgba(255, 255, 255, 0), 24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0), 0px 48px rgba(255, 255, 255, 0);
+  }
+  12% {
+    box-shadow: 0 24px var(--Col-3), 24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0), 0px 48px rgba(255, 255, 255, 0);
+  }
+  25% {
+    box-shadow: 0 24px var(--Col-3), 24px 24px var(--Col-3),
+      24px 48px rgba(255, 255, 255, 0), 0px 48px rgba(255, 255, 255, 0);
+  }
+  37% {
+    box-shadow: 0 24px var(--Col-3), 24px 24px var(--Col-3),
+      24px 48px var(--Col-3), 0px 48px rgba(255, 255, 255, 0);
+  }
+  50% {
+    box-shadow: 0 24px var(--Col-3), 24px 24px var(--Col-3),
+      24px 48px var(--Col-3), 0px 48px var(--Col-3);
+  }
+  62% {
+    box-shadow: 0 24px rgba(255, 255, 255, 0), 24px 24px var(--Col-3),
+      24px 48px var(--Col-3), 0px 48px var(--Col-3);
+  }
+  75% {
+    box-shadow: 0 24px rgba(255, 255, 255, 0), 24px 24px rgba(255, 255, 255, 0),
+      24px 48px var(--Col-3), 0px 48px var(--Col-3);
+  }
+  87% {
+    box-shadow: 0 24px rgba(255, 255, 255, 0), 24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0), 0px 48px var(--Col-3);
+  }
+  100% {
+    box-shadow: 0 24px rgba(255, 255, 255, 0), 24px 24px rgba(255, 255, 255, 0),
+      24px 48px rgba(255, 255, 255, 0), 0px 48px rgba(255, 255, 255, 0);
+  }
+}
+@keyframes animloader2 {
+  0% {
+    transform: translate(0, 0) rotateX(0) rotateY(0);
+  }
+  25% {
+    transform: translate(100%, 0) rotateX(0) rotateY(180deg);
+  }
+  50% {
+    transform: translate(100%, 100%) rotateX(-180deg) rotateY(180deg);
+  }
+  75% {
+    transform: translate(0, 100%) rotateX(-180deg) rotateY(360deg);
+  }
+  100% {
+    transform: translate(0, 0) rotateX(0) rotateY(360deg);
+  }
+}
+/* MODAL LOGIN ATENÇÃO*/
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  z-index: 999;
+}
+.modal-content {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 0.5rem;
+  background: var(--Bg-1);
+
+  & form {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  & input {
+    height: 2rem;
+    width: 18rem;
+    padding: 0.25rem;
+    font-size: 0.9rem;
+  }
+}
+#submitLogin {
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.5rem;
+  font-size: var(--Text-2);
+  text-transform: uppercase;
+  display: flex;
+  justify-content: center;
+  border: var(--Border);
+  border-radius: var(--Radius);
+  &:hover {
+    color: var(--Bg-1);
+    background-color: var(--Col-3);
+  }
+}
+/* Popup container */
+.popup {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: #fff;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/* Visibilidade animada */
+.popup.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+.popup.success {
+  background-color: #4caf50;
+}
+.popup.error {
+  background-color: #f44336;
+}
+/* Model Anime Box */
